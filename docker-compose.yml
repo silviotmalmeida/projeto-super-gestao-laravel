@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+
+  #nome do servico
+  super-gestao-laravel:
+
+    #construido a partir de uma imagem customizada em ./image
+    image: super-gestao-laravel
+    
+    #nome do conteiner
+    container_name: super-gestao-laravel
+
+    #pastas compartilhadas
+    volumes:
+      #pasta do codigo fonte da aplicacao
+      - "./app:/root"
+
+    #porta a ser exposta
+    ports:
+      - 8080:8080
+  
+    #artifício para manter o container aberto
+    tty: true
