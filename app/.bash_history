@@ -78,3 +78,8 @@ exit
 cd /root/
 composer create-project --prefer-dist laravel/laravel app_super_gestao "7.0.0"
 exit
+cd /root/app_super_gestao/
+php artisan make:controller IndexController
+php artisan make:controller AboutController
+php artisan make:controller ContactController
+exit
