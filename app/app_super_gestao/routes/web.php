@@ -36,9 +36,7 @@ Route::prefix('/app')->group(function () {
         return 'Cliente';
     })->name('app.client');
     // rota para a página provider
-    Route::get('/provider', function () {
-        return 'Fornecedor';
-    })->name('app.provider');
+    Route::get('/provider', 'ProviderController@index')->name('app.provider');
     // rota para a página product
     Route::get('/product', function () {
         return 'Produto';
@@ -47,5 +45,5 @@ Route::prefix('/app')->group(function () {
 
 // definindo a rota de fallback, que será utilizada em rotas não existentes
 Route::fallback(function () {
-    return 'A rota acessada não existe.<a href="'.route('site.index').'">Retorne para o início.</a>';
+    return 'A rota acessada não existe.<a href="' . route('site.index') . '">Retorne para o início.</a>';
 });

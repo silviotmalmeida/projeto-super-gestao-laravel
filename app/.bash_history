@@ -83,3 +83,6 @@ php artisan make:controller IndexController
 php artisan make:controller AboutController
 php artisan make:controller ContactController
 exit
+cd /root/app_super_gestao/
+php artisan make:controller ProviderController
+exit
