@@ -1,7 +1,38 @@
-<h3>Contato (view)</h3>
+@extends('site.layouts.base')
 
-<ul>
-    <li><a href="{{ route('site.index') }}">Principal</a></li>
-    <li><a href="{{ route('site.about') }}">Sobre Nós</a></li>
-    <li><a href="{{ route('site.contact') }}">Contato</a></li>
-</ul>
+@section('title', 'Contato')
+
+@section('content')
+
+    <div class="conteudo-pagina">
+        <div class="titulo-pagina">
+            <h1>Entre em contato conosco</h1>
+        </div>
+
+        <div class="informacao-pagina">
+            <div class="contato-principal">
+                <form>
+                    <input type="text" placeholder="Nome" class="borda-preta">
+                    <br>
+                    <input type="text" placeholder="Telefone" class="borda-preta">
+                    <br>
+                    <input type="text" placeholder="E-mail" class="borda-preta">
+                    <br>
+                    <select class="borda-preta">
+                        <option value="">Qual o motivo do contato?</option>
+                        <option value="">Dúvida</option>
+                        <option value="">Elogio</option>
+                        <option value="">Reclamação</option>
+                    </select>
+                    <br>
+                    <textarea class="borda-preta">Preencha aqui a sua mensagem</textarea>
+                    <br>
+                    <button type="submit" class="borda-preta">ENVIAR</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @include('site.layouts._partials._bottom')
+
+@endsection
