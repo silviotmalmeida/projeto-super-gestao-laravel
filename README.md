@@ -12,6 +12,8 @@ O projeto encontra-se dockerizado para facilitar a implantação. As orientaçõ
 
 - Para instalar as dependências do projeto utiliza-se o comando "sudo ./runComposerInstall.sh";
 
+- Para aplicar as migrations utiliza-se o comando "sudo ./runMigrate.sh";
+
 - Para iniciar o servidor utiliza-se o comando "sudo ./runServer.sh";
 
 - O sistema estará disponível na URL "0.0.0.0:8080";
@@ -29,6 +31,10 @@ Principais comandos do laravel:
 - Para criar um projeto laravel utiliza-se o comando: composer create-project --prefer-dist laravel/laravel nome-do-projeto "versão do laravel"
 
 - Para criar um controller utiliza-se o comando, na pasta raiz do projeto: php artisan make:controller nome-do-controller
+
+- Para criar uma model e sua migration utiliza-se o comando, na pasta raiz do projeto: php artisan make:model nome-da-model -m
+
+- Para aplicar as migrations utiliza-se o comando, na pasta raiz do projeto: php artisan migrate
 
 - Para criar listar as rotas disponíveis utiliza-se o comando, na pasta raiz do projeto: php artisan route:list
 

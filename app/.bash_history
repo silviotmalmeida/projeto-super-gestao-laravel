@@ -86,3 +86,10 @@ exit
 cd /root/app_super_gestao/
 php artisan make:controller ProviderController
 exit
+cd /root/app_super_gestao/
+php artisan make:model SiteContact -m
+exit
+cd /root/app_super_gestao/
+php artisan migrate
+php artisan migrate
+exit

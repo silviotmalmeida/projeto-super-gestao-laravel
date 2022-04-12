@@ -1,7 +1,10 @@
+{{-- extende do arquivo base de layout --}}
 @extends('site.layouts.base')
 
+{{-- definindo o título a ser injetado --}}
 @section('title', 'Sobre nós')
 
+{{-- definindo o conteúdo a ser injetado --}}
 @section('content')
 
     <div class="conteudo-pagina">
@@ -16,6 +19,7 @@
         </div>
     </div>
 
+    {{-- incluindo o rodapé --}}
     @include('site.layouts._partials._bottom')
 
 @endsection

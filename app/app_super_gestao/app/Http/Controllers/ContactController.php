@@ -10,6 +10,9 @@ class ContactController extends Controller
     // criando a ação contact
     public function contact()
     {
+
+        var_dump($_POST);
+
         // renderiza a view contact
         return view('site.contact');
     }
