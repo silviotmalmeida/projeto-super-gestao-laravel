@@ -93,3 +93,14 @@ cd /root/app_super_gestao/
 php artisan migrate
 php artisan migrate
 exit
+cd /root/app_super_gestao/
+php artisan make:model Provider
+php artisan make:model Provider -m
+exit
+php artisan make:migration alter_providers_table_new_columns
+cd /root/app_super_gestao/
+php artisan make:migration alter_providers_table_new_columns
+exit
+cd /root/app_super_gestao/
+php artisan make:model Product -m
+exit

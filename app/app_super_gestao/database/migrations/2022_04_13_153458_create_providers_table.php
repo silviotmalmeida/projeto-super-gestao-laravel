@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSiteContactsTable extends Migration
+class CreateProvidersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSiteContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('site_contacts', function (Blueprint $table) {
+        Schema::create('providers', function (Blueprint $table) {
 
             // colunas padrão do laravel
             $table->id();
@@ -21,10 +21,8 @@ class CreateSiteContactsTable extends Migration
 
             // colunas personalizadas da tabela
             $table->string('name', 50);
-            $table->string('phone', 20);
-            $table->string('email', 80);
-            $table->integer('reason');
-            $table->text('message');
+            // $table->string('uf', 2);
+            // $table->string('email', 150);
         });
     }
 
@@ -35,6 +33,6 @@ class CreateSiteContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('site_contacts');
+        Schema::dropIfExists('providers');
     }
 }

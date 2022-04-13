@@ -36,6 +36,8 @@ Principais comandos do laravel:
 
 - Para aplicar as migrations utiliza-se o comando, na pasta raiz do projeto: php artisan migrate
 
+- Para reverter as migrations utiliza-se o comando, na pasta raiz do projeto: php artisan migrate:rollback --step=número-de-passos-a-serem-revertidos
+
 - Para criar listar as rotas disponíveis utiliza-se o comando, na pasta raiz do projeto: php artisan route:list
 
 
