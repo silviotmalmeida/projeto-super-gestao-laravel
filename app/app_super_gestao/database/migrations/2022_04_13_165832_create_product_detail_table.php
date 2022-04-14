@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductsTable extends Migration
+class CreateProductDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,25 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('product_detail', function (Blueprint $table) {
 
             // colunas padrão do laravel
             $table->id();
             $table->timestamps();
 
             // colunas personalizadas da tabela
-            $table->string('name', 100);
-            $table->text('description')->nullable();
-            $table->integer('weight')->nullable();
-            
+            $table->float('lenght', 8, 2);
+            $table->float('width', 8, 2);
+            $table->float('height', 8, 2);
+
+            // configuração da chave estrangeira para a tabela product (um para um):
+            //// criação da coluna
+            $table->integer('product_id');
+            //// adição da restrição de integridade referencial
+            $table->foreign('product_id')->references('id')->on('products');
+            //// adição da restrição de unicidade
+            $table->unique('product_id');
+
             // configuração da chave estrangeira para a tabela units (um para muitos):
             //// criação da coluna
             $table->integer('unit_id');
@@ -39,6 +47,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('product_detail');
     }
 }

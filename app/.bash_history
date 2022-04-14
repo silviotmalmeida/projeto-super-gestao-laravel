@@ -104,3 +104,10 @@ exit
 cd /root/app_super_gestao/
 php artisan make:model Product -m
 exit
+cd /root/app_super_gestao/
+php artisan make:migration create_product_detail_table
+exit
+php artisan make:migration create_units_table
+cd /root/app_super_gestao/
+php artisan make:migration create_units_table
+exit

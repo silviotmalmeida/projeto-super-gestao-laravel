@@ -21,8 +21,8 @@ class CreateProvidersTable extends Migration
 
             // colunas personalizadas da tabela
             $table->string('name', 50);
-            // $table->string('uf', 2);
-            // $table->string('email', 150);
+            $table->string('uf', 2);
+            $table->string('email', 150);
         });
     }
 
