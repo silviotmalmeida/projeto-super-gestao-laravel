@@ -111,3 +111,12 @@ php artisan make:migration create_units_table
 cd /root/app_super_gestao/
 php artisan make:migration create_units_table
 exit
+cd /root/app_super_gestao/
+php artisan make:seeder ProviderSeeder
+exit
+cd /root/app_super_gestao/
+php artisan make:seeder SiteContactSeeder
+exit
+cd /root/app_super_gestao/
+php artisan make:factory SiteContactFactory --model=SiteContact
+exit

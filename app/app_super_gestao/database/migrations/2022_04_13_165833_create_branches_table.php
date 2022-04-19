@@ -21,6 +21,9 @@ class CreateBranchesTable extends Migration
 
             // colunas personalizadas da tabela
             $table->string('name', 30);
+
+            // coluna para permitir o soft delete
+            $table->softDeletes();
         });
     }
 

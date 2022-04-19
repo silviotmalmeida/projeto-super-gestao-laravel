@@ -25,6 +25,9 @@ class CreateSiteContactsTable extends Migration
             $table->string('email', 80);
             $table->integer('reason');
             $table->text('message');
+
+            // coluna para permitir o soft delete
+            $table->softDeletes();
         });
     }
 

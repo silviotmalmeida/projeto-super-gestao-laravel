@@ -29,6 +29,9 @@ class CreateProductsTable extends Migration
             $table->integer('unit_id');
             //// adição da restrição de integridade referencial
             $table->foreign('unit_id')->references('id')->on('units');
+
+            // coluna para permitir o soft delete
+            $table->softDeletes();
         });
     }
 

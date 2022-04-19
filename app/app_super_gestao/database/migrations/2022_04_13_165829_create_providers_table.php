@@ -21,8 +21,12 @@ class CreateProvidersTable extends Migration
 
             // colunas personalizadas da tabela
             $table->string('name', 50);
+            $table->string('site', 150);
             $table->string('uf', 2);
             $table->string('email', 150);
+
+            // coluna para permitir o soft delete
+            $table->softDeletes();
         });
     }
 

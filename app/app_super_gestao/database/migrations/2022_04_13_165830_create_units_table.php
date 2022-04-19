@@ -22,6 +22,9 @@ class CreateUnitsTable extends Migration
             // colunas personalizadas da tabela
             $table->string('name', 5);
             $table->string('description', 30);
+
+            // coluna para permitir o soft delete
+            $table->softDeletes();
         });
     }
 
