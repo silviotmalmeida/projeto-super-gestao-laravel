@@ -37,8 +37,10 @@
 
                     {{-- adicionando o componente de formulário de contato --}}
                     {{-- definindo o valor da variável $borderClass, a ser injetada no componente --}}
+                    {{-- definindo o valor da variável $reasons, a ser injetada no componente --}}
                     @component('site.layouts._components._contact_form', [
                         'borderClass' => 'borda-branca',
+                        'reasons' => $reasons,
                         ])
                     @endcomponent
 

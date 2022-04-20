@@ -23,7 +23,7 @@ Route::get('/', 'IndexController@index')->name('site.index');
 Route::get('/about', 'AboutController@about')->name('site.about');
 // rota para a página contato
 Route::get('/contact', 'ContactController@contact')->name('site.contact');
-Route::post('/contact', 'ContactController@contact')->name('site.contact');
+Route::post('/contact', 'ContactController@save')->name('site.contact');
 // rota para a página login
 Route::get('/login', function () {
     return 'Login';

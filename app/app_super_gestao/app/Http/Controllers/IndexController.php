@@ -10,7 +10,14 @@ class IndexController extends Controller
     // criando a ação index
     public function index()
     {
-        // renderiza a view index
-        return view('site.index');
+        //HACK array temporário para popular o option do formulário
+        $reasons = [
+            '1' => 'Dúvida',
+            '2' => 'Elogio',
+            '3' => 'Reclamação',
+        ];
+
+        // renderiza a view index, repassando os dados de option do formulário
+        return view('site.index', ['reasons' => $reasons]);
     }
 }
