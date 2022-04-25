@@ -23,8 +23,13 @@ class CreateSiteContactsTable extends Migration
             $table->string('name', 50);
             $table->string('phone', 20);
             $table->string('email', 80);
-            $table->integer('reason');
             $table->text('message');
+
+            // configuração da chave estrangeira para a tabela contact_reasons (um para muitos):
+            //// criação da coluna
+            $table->integer('contact_reasons_id');
+            //// adição da restrição de integridade referencial
+            $table->foreign('contact_reasons_id')->references('id')->on('contact_reasons');
 
             // coluna para permitir o soft delete
             $table->softDeletes();

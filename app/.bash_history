@@ -120,3 +120,7 @@ exit
 cd /root/app_super_gestao/
 php artisan make:factory SiteContactFactory --model=SiteContact
 exit
+cd /root/app_super_gestao/
+php artisan make:model ContactReason -m
+php artisan make:seeder ContactReasonSeeder
+exit

@@ -5,13 +5,20 @@
 use App\SiteContact;
 use Faker\Generator as Faker;
 
+// importando a model para consulta dos motivos de contato
+use App\ContactReason;
+
 $factory->define(SiteContact::class, function (Faker $faker) {
+
+    // consultando o valor do último motivo cadastrado
+    $reasonRange = ContactReason::max('id');
+
     return [
         // populando os dados de teste com a biblioteca faker
         'name' => $faker->name,
         'phone' => $faker->tollFreePhoneNumber,
         'email' => $faker->unique()->email,
-        'reason' => $faker->numberBetween(1, 3),
+        'contact_reasons_id' => $faker->numberBetween(1, $reasonRange),
         'message' => $faker->text(200)
     ];
 });

@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// importando a model com os motivos de contato
+use App\ContactReason;
+
+// importando a model a ser utilizada na persistencia
+use App\SiteContact;
+
 // controller responsável pelas ações da rota /contact
 class ContactController extends Controller
 {
@@ -11,12 +17,8 @@ class ContactController extends Controller
     public function contact()
     {
 
-        //HACK array temporário para popular o option do formulário
-        $reasons = [
-            '1' => 'Dúvida',
-            '2' => 'Elogio',
-            '3' => 'Reclamação',
-        ];
+        // array para popular o option do formulário
+        $reasons = ContactReason::all();
 
         // renderiza a view contact, repassando os dados de option do formulário
         return view('site.contact', ['reasons' => $reasons]);
@@ -26,11 +28,20 @@ class ContactController extends Controller
     public function save(Request $request)
     {
 
-        echo "<pre>";
-        print_r($request->all());
-        echo "</pre>";
+        // validando os dados recebidos do formulário
+        $request->validate([
 
-        // renderiza a view contact
-        return view('site.contact');
+            'name' => 'required|min:3|max:50',
+            'phone' => 'required|min:11|max:20',
+            'email' => 'required|email|max:80',
+            'contact_reasons_id' => 'required',
+            'message' => 'required|max:2000',
+        ]);
+
+        // persistindo os dados no BD
+        SiteContact::create($request->all());
+        
+        // renderiza para a view index
+        return redirect()->route('site.index');
     }
 }

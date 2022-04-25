@@ -16,21 +16,20 @@
     <br>
     <input name="email" value="{{ old('email') }}" type="text" placeholder="E-mail" class="{{ $borderClass }}">
     <br>
-    <select name="reason" class="{{ $borderClass }}">
-        <option value="" {{ old('reason') == '' ? 'selected' : '' }}>Qual o motivo do contato?</option>
+    <select name="contact_reasons_id" class="{{ $borderClass }}">
+        <option value="" {{ old('contact_reasons_id') == '' ? 'selected' : '' }}>Qual o motivo do contato?</option>
 
-        @foreach ($reasons as $key => $reason)
-            <option value="{{ $key }}" {{ old('reason') == $key ? 'selected' : '' }}>{{ $reason }}
-            </option>
+        @foreach ($reasons as $reason)
+            <option value="{{ $reason->id }}" {{ old('contact_reasons_id') == $reason->id ? 'selected' : '' }}>{{ $reason->reason }}</option>
         @endforeach
 
     </select>
     <br>
 
     {{-- se existir conteúdo anterior --}}
-    @if (old('mensagem') != '')
+    @if (old('message') != '')
         {{-- preserva-o --}}
-        <textarea name="message" class="{{ $borderClass }}">{{ old('mensagem') }}</textarea>
+        <textarea name="message" class="{{ $borderClass }}">{{ old('message') }}</textarea>
 
         {{-- senão --}}
     @else
@@ -41,3 +40,18 @@
     <br>
     <button type="submit" class="{{ $borderClass }}">ENVIAR</button>
 </form>
+
+@if($errors->any())
+    <div style="position:absolute; top:0px; left:0px; width:100%; background:red;">
+
+    <pre>
+
+        @foreach($errors->all() as $error)
+            {{$error}}
+            <br>
+        @endforeach
+
+    </pre>
+
+    </div>
+@endif
