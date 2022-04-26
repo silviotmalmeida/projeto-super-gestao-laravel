@@ -29,19 +29,32 @@ class ContactController extends Controller
     {
 
         // validando os dados recebidos do formulário
-        $request->validate([
-
-            'name' => 'required|min:3|max:50',
-            'phone' => 'required|min:11|max:20',
-            'email' => 'required|email|max:80',
-            'contact_reasons_id' => 'required',
-            'message' => 'required|max:2000',
-        ]);
+        $request->validate(
+            // definição das validações de cada campo
+            [
+                'name' => 'required|min:3|max:50',
+                'phone' => 'required|min:11|max:20',
+                'email' => 'required|email|max:80',
+                'contact_reasons_id' => 'required',
+                'message' => 'required|max:2000',
+            ],
+            // customização das mensagens de erro
+            [
+                'required' => 'O campo não pode ser vazio!',
+                'name.min' => 'O campo nome não ter menos de 3 caracteres!',
+                'name.max' => 'O campo nome não ter mais de 50 caracteres!',
+                'phone.min' => 'O campo telefone não ter menos de 11 caracteres!',
+                'phone.max' => 'O campo telefone não ter mais de 20 caracteres!',
+                'email' => 'E-mail inválido!',
+                'email.max' => 'O campo email não ter mais de 80 caracteres!',
+                'message.max' => 'O campo mensagem não ter mais de 2000 caracteres!',
+            ]
+        );
 
         // persistindo os dados no BD
         SiteContact::create($request->all());
-        
-        // renderiza para a view index
+
+        // redireciona para a view index
         return redirect()->route('site.index');
     }
 }
