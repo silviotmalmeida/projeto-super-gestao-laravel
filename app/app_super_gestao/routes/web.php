@@ -25,9 +25,8 @@ Route::get('/about', 'AboutController@about')->name('site.about');
 Route::get('/contact', 'ContactController@contact')->name('site.contact');
 Route::post('/contact', 'ContactController@save')->name('site.contact');
 // rota para a página login
-Route::get('/login', function () {
-    return 'Login';
-})->name('site.login');
+Route::get('/login', 'LoginController@index')->name('site.login');
+Route::post('/login', 'LoginController@authenticate')->name('site.login');
 
 // rotas privadas agrupadas (com necessidade de login)
 // agrupando as rotas no prefixo /app
