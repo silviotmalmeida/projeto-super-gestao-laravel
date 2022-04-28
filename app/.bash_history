@@ -127,3 +127,6 @@ exit
 cd /root/app_super_gestao/
 php artisan make:controller LoginController
 exit
+cd /root/app_super_gestao/
+php artisan make:middleware CustomAuthMiddleware
+exit

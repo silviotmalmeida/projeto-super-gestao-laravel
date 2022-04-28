@@ -10,10 +10,14 @@ use App\User;
 class LoginController extends Controller
 {
     // criando a ação index
-    public function index()
+    public function index(Request $request)
     {
-        // renderiza a view login
-        return view('site.login');
+
+        // obtendo o código do erro a partir da requisição
+        $error = $request->get('error');
+
+        // renderiza a view login, passando o parâmetro de erro de autenticação como true
+        return view('site.login', ['error' => $error]);
     }
 
     // criando a ação authenticate
@@ -45,10 +49,22 @@ class LoginController extends Controller
 
         if (isset($exists->name)) {
 
-            echo "usuário existe";
+            // inicia a sessão e cria os atributos nome e email
+            session_start();
+            $_SESSION['name'] = $exists->name;
+            $_SESSION['email'] = $exists->email;
+
+            // redireciona para a view client
+            return redirect()->route('app.client');
         } else {
 
-            echo "usuário não existe";
+            // resetando a sessão
+            session_start();
+            unset($_SESSION['name']);
+            unset($_SESSION['email']);
+
+            // renderiza a view login, passando o código de erro de autenticação
+            return redirect()->route('site.login', ['error' => 1]);
         }
     }
 }

@@ -39,6 +39,12 @@
                     <button type="submit" class="borda-preta">LOGIN</button>
                 </form>
 
+                {{-- se houve erro de autenticação, exibe a mensagem --}}
+                {{ (isset($error) and $error == 1) ? 'Usuário ou senha inválidos!' : ''}}
+
+                {{-- se houve tentativa de acesso à área restrita --}}
+                {{ (isset($error) and $error == 2) ? 'Área restrita! Realize login para continuar.' : ''}}
+
             </div>  
 
         </div>

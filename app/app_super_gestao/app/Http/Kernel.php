@@ -62,5 +62,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        // inserindo o alias para o middleware de controle de acesso da área restrita
+        'customauth' => \App\Http\Middleware\CustomAuthMiddleware::class
     ];
 }
