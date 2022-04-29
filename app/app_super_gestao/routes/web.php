@@ -27,21 +27,21 @@ Route::post('/contact', 'ContactController@save')->name('site.contact');
 // rota para a página login
 // quando a requisição for get, possui atributo opcional error
 Route::get('/login{error?}', 'LoginController@index')->name('site.login');
-Route::post('/login', 'LoginController@authenticate')->name('site.login');
+Route::post('/login', 'LoginController@login')->name('site.login');
 
 // rotas privadas agrupadas (com necessidade de login)
 // agrupando as rotas no prefixo /app
 Route::prefix('/app')->middleware('customauth')->group(function () {
+    // rota para a página home
+    Route::get('/home', 'HomeController@index')->name('app.home');
+    // rota para a página logout
+    Route::get('/logout', 'LoginController@logout')->name('app.logout');
     // rota para a página client
-    Route::get('/client', function () {
-        return 'Cliente';
-    })->name('app.client');
+    Route::get('/client', 'ClientController@index')->name('app.client');
     // rota para a página provider
     Route::get('/provider', 'ProviderController@index')->name('app.provider');
     // rota para a página product
-    Route::get('/product', function () {
-        return 'Produto';
-    })->name('app.product');
+    Route::get('/product', 'ProductController@index')->name('app.product');
 });
 
 // definindo a rota de fallback, que será utilizada em rotas não existentes

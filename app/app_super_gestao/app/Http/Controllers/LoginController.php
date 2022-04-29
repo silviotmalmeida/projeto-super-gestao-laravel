@@ -20,8 +20,8 @@ class LoginController extends Controller
         return view('site.login', ['error' => $error]);
     }
 
-    // criando a ação authenticate
-    public function authenticate(Request $request)
+    // criando a ação login
+    public function login(Request $request)
     {
         // validando os dados recebidos do formulário
         $request->validate(
@@ -66,5 +66,18 @@ class LoginController extends Controller
             // renderiza a view login, passando o código de erro de autenticação
             return redirect()->route('site.login', ['error' => 1]);
         }
+    }
+
+    // criando a ação logout
+    public function logout(Request $request)
+    {
+
+        // resetando a sessão
+        session_start();
+        unset($_SESSION['name']);
+        unset($_SESSION['email']);
+
+        // renderiza a view login
+        return redirect()->route('site.login');
     }
 }
