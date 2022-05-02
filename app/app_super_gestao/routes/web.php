@@ -38,8 +38,11 @@ Route::prefix('/app')->middleware('customauth')->group(function () {
     Route::get('/logout', 'LoginController@logout')->name('app.logout');
     // rota para a página client
     Route::get('/client', 'ClientController@index')->name('app.client');
-    // rota para a página provider
+    // rotas para as páginas de provider
     Route::get('/provider', 'ProviderController@index')->name('app.provider');
+    Route::post('/provider/list', 'ProviderController@list')->name('app.provider.list');
+    Route::get('/provider/add', 'ProviderController@add')->name('app.provider.add');
+    Route::post('/provider/add', 'ProviderController@add')->name('app.provider.add');
     // rota para a página product
     Route::get('/product', 'ProductController@index')->name('app.product');
 });

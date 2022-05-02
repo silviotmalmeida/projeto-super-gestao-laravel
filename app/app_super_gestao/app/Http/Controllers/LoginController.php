@@ -55,13 +55,11 @@ class LoginController extends Controller
             $_SESSION['email'] = $exists->email;
 
             // redireciona para a view client
-            return redirect()->route('app.client');
+            return redirect()->route('app.home');
         } else {
 
-            // resetando a sessão
-            session_start();
-            unset($_SESSION['name']);
-            unset($_SESSION['email']);
+            // destruindo a sessão
+            session_destroy();
 
             // renderiza a view login, passando o código de erro de autenticação
             return redirect()->route('site.login', ['error' => 1]);
@@ -72,12 +70,10 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
 
-        // resetando a sessão
-        session_start();
-        unset($_SESSION['name']);
-        unset($_SESSION['email']);
+        // destruindo a sessão
+        session_destroy();
 
         // renderiza a view login
-        return redirect()->route('site.login');
+        return redirect()->route('site.index');
     }
 }
