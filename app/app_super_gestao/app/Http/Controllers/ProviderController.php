@@ -18,10 +18,17 @@ class ProviderController extends Controller
     }
 
     // criando a ação list
-    public function list()
+    public function list(Request $request)
     {
-        // renderiza a view list
-        return view('app.provider.list');
+        // consulta no BD, utilizando os dados do formulário
+        $providers = Provider::where('name', 'like', '%' . $request->input('name') . '%')
+            ->where('site', 'like', '%' . $request->input('site') . '%')
+            ->where('uf', 'like', '%' . $request->input('uf') . '%')
+            ->where('email', 'like', '%' . $request->input('email') . '%')
+            ->get();
+
+        // renderiza a view list, passando os resultados da consulta
+        return view('app.provider.list', ['providers' => $providers]);
     }
 
     // criando a ação add
