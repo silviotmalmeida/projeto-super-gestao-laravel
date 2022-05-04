@@ -38,11 +38,18 @@ Route::prefix('/app')->middleware('customauth')->group(function () {
     Route::get('/logout', 'LoginController@logout')->name('app.logout');
     // rota para a página client
     Route::get('/client', 'ClientController@index')->name('app.client');
+
     // rotas para as páginas de provider
     Route::get('/provider', 'ProviderController@index')->name('app.provider');
+    Route::get('/provider/list', 'ProviderController@list')->name('app.provider.list');
     Route::post('/provider/list', 'ProviderController@list')->name('app.provider.list');
     Route::get('/provider/add', 'ProviderController@add')->name('app.provider.add');
     Route::post('/provider/add', 'ProviderController@add')->name('app.provider.add');
+    // atributo id obrigatório, msg opcional
+    Route::get('/provider/edit/{id}/{msg?}', 'ProviderController@edit')->name('app.provider.edit');
+    Route::get('/provider/delete/{id}', 'ProviderController@delete')->name('app.provider.delete');
+    
+    
     // rota para a página product
     Route::get('/product', 'ProductController@index')->name('app.product');
 });
