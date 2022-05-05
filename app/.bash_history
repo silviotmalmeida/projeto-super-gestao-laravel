@@ -135,3 +135,20 @@ php artisan make:controller HomeController
 php artisan make:controller ClientController
 php artisan make:controller ProductController
 exit
+cd /root/app_super_gestao/
+php artisan make:controller --resource ProductController
+exit
+php artisan make:seeder UnitSeeder
+cd /root/app_super_gestao/
+php artisan make:seeder UnitSeeder
+exit
+cd /root/app_super_gestao/
+php artisan make:controller --resource UnitController
+php artisan make:model Unit
+exit
+cd /root/app_super_gestao/
+php artisan make:seeder ProductSeeder
+exit
+cd /root/app_super_gestao/
+php artisan route:list
+exit

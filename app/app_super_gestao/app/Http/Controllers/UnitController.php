@@ -4,24 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// importando a model Product
-use App\Product;
-
-class ProductController extends Controller
+class UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        // consulta no BD, paginando os registros
-        $products = Product::paginate(10);
-
-        // renderiza a view list, passando os resultados da consulta e os parâmetros do request
-        // o envio dos parâmetros do request possibilita a persistência dos filtros utilizados na paginação
-        return view('app.product.index', ['products' => $products, 'request' => $request->all()]);
+        //
     }
 
     /**
