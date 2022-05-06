@@ -12,8 +12,13 @@
             <h1>Listar Produtos</h1>
         </div>
 
-        {{-- incluindo o menu especifico de product --}}
-        @include('app.product._partials._nav')
+        {{-- inserindo os links para as rotas --}}
+        <div class="menu">
+            <ul>
+                <li><a href="{{ route('product.create') }}">Novo</a></li>
+                <li><a href="{{ route('product.index') }}">Consulta</a></li>
+            </ul>
+        </div>
 
         <div class="informacao-pagina">
             <div style="width: 90%; margin-left: auto; margin-right: auto;">
@@ -28,6 +33,7 @@
                             <th>Unidade</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,6 +45,7 @@
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->weight }}</td>
                                 <td>{{ $product->unit_id }}</td>
+                                <td><a href="{{ route('product.show', $product->id) }}">Visualizar</a></td>
                                 <td><a href="{{ route('product.update', $product->id) }}">Editar</a></td>
                                 <td><a href="{{ route('product.destroy', $product->id) }}">Excluir</a></td>
                             </tr>

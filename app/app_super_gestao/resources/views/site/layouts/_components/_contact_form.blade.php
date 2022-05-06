@@ -30,6 +30,7 @@
     <select name="contact_reasons_id" class="{{ $borderClass }}">
         <option value="" {{ old('contact_reasons_id') == '' ? 'selected' : '' }}>Qual o motivo do contato?</option>
 
+        {{-- iterando sobre as reasons cadastradas --}}
         @foreach ($reasons as $reason)
             <option value="{{ $reason->id }}" {{ old('contact_reasons_id') == $reason->id ? 'selected' : '' }}>{{ $reason->reason }}</option>
         @endforeach
