@@ -46,8 +46,18 @@
                                 <td>{{ $product->weight }}</td>
                                 <td>{{ $product->unit_id }}</td>
                                 <td><a href="{{ route('product.show', $product->id) }}">Visualizar</a></td>
-                                <td><a href="{{ route('product.update', $product->id) }}">Editar</a></td>
-                                <td><a href="{{ route('product.destroy', $product->id) }}">Excluir</a></td>
+                                <td><a href="{{ route('product.edit', $product->id) }}">Editar</a></td>
+                                {{-- para o caso do excluir, como utiliza o verbo http delete --}}
+                                {{-- deve-se incluir um form para isto, com id dinâmico, e ativado por um link com javascript --}}
+                                <td>
+                                    <form id="form_delete_{{ $product->id }}" method="post" action="{{ route('product.destroy', $product->id) }}">
+                                        {{-- inserindo o token csrf --}}
+                                        @csrf
+                                        {{-- alterando o verbo http como delete --}}
+                                        @method('DELETE')
+                                        {{-- inserindo o link com evento de javascript para submeter o formulário --}}
+                                        <a href="#" onclick="document.getElementById('form_delete_{{ $product->id }}').submit()">Excluir</a></td>
+                                    </form>    
                             </tr>
                         @endforeach
                     </tbody>

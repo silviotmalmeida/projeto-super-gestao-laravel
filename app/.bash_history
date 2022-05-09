@@ -152,3 +152,6 @@ exit
 cd /root/app_super_gestao/
 php artisan route:list
 exit
+cd /root/app_super_gestao/
+php artisan make:seeder UserSeeder
+exit

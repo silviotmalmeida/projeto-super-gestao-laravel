@@ -95,7 +95,7 @@ class ProductController extends Controller
         if (!$product->id) {
 
             // renderiza a view index
-            return view('app.product.index');
+            return redirect()->route('product.index');
         }
         // senão
         else {
@@ -113,7 +113,24 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        // consulta no BD, utilizando o id
+        $product = Product::find($id);
+
+        // se não houver correspondência no BD
+        if (!$product->id) {
+
+            // renderiza a view index
+            return redirect()->route('product.index');
+        }
+        // senão
+        else {
+
+            // obtendo as unidades de medida cadastradas
+            $units = Unit::all();
+
+            // renderiza a view add, passando os resultados da consulta
+            return view('app.product.create', ['product' => $product, 'units' => $units]);
+        }
     }
 
     /**
@@ -125,7 +142,35 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validando os dados recebidos do formulário
+        $request->validate(
+            // definição das validações de cada campo
+            [
+                'name' => 'required|min:3|max:50',
+                'description' => 'required|min:3|max:100',
+                'weight' => 'required|numeric|between:0,1000',
+                'unit_id' => 'required|integer|exists:units,id',
+            ],
+            // customização das mensagens de erro
+            [
+                'required' => 'O campo não pode ser vazio!',
+                'name.min' => 'O campo nome não ter menos de 3 caracteres!',
+                'name.max' => 'O campo nome não ter mais de 50 caracteres!',
+                'description.min' => 'O campo nome não ter menos de 3 caracteres!',
+                'description.max' => 'O campo nome não ter mais de 50 caracteres!',
+                'numeric' => 'O campo deve ser um número!',
+                'weight.between' => 'O campo deve ser um número entre 0 e 1000!',
+                'integer' => 'O campo deve ser um número inteiro!',
+                'unit_id.exists' => 'Unidade de medida inválida!',
+            ]
+        );
+
+        // atualiza os dados no BD
+        $product = Product::find($id);
+        $product->update($request->all());
+
+        // redireciona para a rota index
+        return redirect()->route('product.show', ['product' => $product->id]);
     }
 
     /**
@@ -136,6 +181,23 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // consulta no BD, utilizando o id
+        $product = Product::find($id);
+
+        // se não houver correspondência no BD
+        if (!$product->id) {
+
+            // renderiza a view index
+            return redirect()->route('product.index');
+        }
+        // senão
+        else {
+
+            // apagando o registro no BD
+            $product->delete();
+
+            // renderiza a view index
+            return redirect()->route('product.index');
+        }
     }
 }
