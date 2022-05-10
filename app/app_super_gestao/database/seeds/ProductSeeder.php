@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-// importando a model
+// importando as models
 use App\Product;
 
 class ProductSeeder extends Seeder
@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
         // laço para criação dos dados
         for ($i = 1; $i <= 25; $i++) {
 
-            // sorteando um uf
+            // sorteando um peso
             $weight = rand(1, 9);
 
             // criando o objeto e salvando no BD

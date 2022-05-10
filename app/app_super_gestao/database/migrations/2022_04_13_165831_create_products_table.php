@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             // colunas personalizadas da tabela
             $table->string('name', 100);
             $table->text('description')->nullable();
-            $table->double('weight')->nullable();
+            $table->float('weight', 8, 2)->nullable();
             
             // configuração da chave estrangeira para a tabela units (um para muitos):
             //// criação da coluna
