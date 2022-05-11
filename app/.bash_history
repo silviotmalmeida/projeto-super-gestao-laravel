@@ -159,3 +159,6 @@ cd /root/app_super_gestao/
 php artisan make:model ProductDetail
 php artisan make:seeder ProductDetailSeeder
 exit
+cd /root/app_super_gestao/
+php artisan make:controller --resource ProductDetailController
+exit

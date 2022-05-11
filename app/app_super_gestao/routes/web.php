@@ -49,10 +49,15 @@ Route::prefix('/app')->middleware('customauth')->group(function () {
     Route::get('/provider/edit/{id}/{msg?}', 'ProviderController@edit')->name('app.provider.edit');
     Route::get('/provider/delete/{id}', 'ProviderController@delete')->name('app.provider.delete');
        
-    // rotas para as páginas de provider
+    // rotas para as ações de ProductController
     // como o controller foi criado com resources, as rotas podem ser configuradas de forma simplificada
     // esta configuração usa os verbos http mais apropriados para cada ação
     Route::resource('product', 'ProductController');
+
+    // rotas para as ações de ProductDetailController
+    // como o controller foi criado com resources, as rotas podem ser configuradas de forma simplificada
+    // esta configuração usa os verbos http mais apropriados para cada ação
+    Route::resource('product_detail', 'ProductDetailController');
 });
 
 // definindo a rota de fallback, que será utilizada em rotas não existentes
