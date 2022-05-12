@@ -27,9 +27,15 @@
     </div>
 
     <div class="informacao-pagina">
-
+        
         {{-- renderizando a mensagem se tiver sido injetada --}}
         {{ $msg ?? '' }}
+
+        {{-- renderizando os dados do produto --}}
+        <h4>Produto:</h4>
+        <div>Nome: {{ $product_detail->product->name }}</div>        
+        <div>Descrição: {{ $product_detail->product->description }}</div>
+        <br>        
 
         <div style="width: 30%; margin-left: auto; margin-right: auto;">
             

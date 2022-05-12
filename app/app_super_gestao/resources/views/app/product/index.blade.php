@@ -30,7 +30,11 @@
                             <th>Nome</th>
                             <th>Descrição</th>
                             <th>Peso</th>
-                            <th>Unidade</th>
+                            <th>Unidade de Peso</th>
+                            <th>Comprimento</th>
+                            <th>Largura</th>
+                            <th>Altura</th>
+                            <th>Unidade de Tamanhos</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -40,11 +44,19 @@
 
                         {{-- desenhando os registros --}}
                         @foreach ($products as $product)
+                                
                             <tr>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->weight }}</td>
-                                <td>{{ $product->unit_id }}</td>
+                                <td>{{ $product->unit->name }}</td>
+
+                                {{-- consultando os dados relacionados à tabela product_detail --}}
+                                {{-- se não existirem dados relacionados, insere '' --}}
+                                <td>{{ $product->product_detail->lenght ?? '' }}</td>
+                                <td>{{ $product->product_detail->width ?? ''  }}</td>
+                                <td>{{ $product->product_detail->height ?? ''  }}</td>
+                                <td>{{ $product->product_detail->unit_id ?? ''  }}</td>
                                 <td><a href="{{ route('product.show', $product->id) }}">Visualizar</a></td>
                                 <td><a href="{{ route('product.edit', $product->id) }}">Editar</a></td>
                                 {{-- para o caso do excluir, como utiliza o verbo http delete --}}
