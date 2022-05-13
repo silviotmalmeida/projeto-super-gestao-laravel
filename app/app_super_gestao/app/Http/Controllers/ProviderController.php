@@ -22,11 +22,11 @@ class ProviderController extends Controller
     {
         // consulta no BD, utilizando os dados do formulário
         // paginando os registros
-        $providers = Provider::where('name', 'like', '%' . $request->input('name') . '%')
+        $providers = Provider::with('product')->where('name', 'like', '%' . $request->input('name') . '%')
             ->where('site', 'like', '%' . $request->input('site') . '%')
             ->where('uf', 'like', '%' . $request->input('uf') . '%')
             ->where('email', 'like', '%' . $request->input('email') . '%')
-            ->paginate(10);
+            ->paginate(5);
 
         // renderiza a view list, passando os resultados da consulta e os parâmetros do request
         // o envio dos parâmetros do request possibilita a persistência dos filtros utilizados na paginação

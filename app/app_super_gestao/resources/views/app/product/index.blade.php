@@ -35,6 +35,8 @@
                             <th>Largura</th>
                             <th>Altura</th>
                             <th>Unidade de Tamanhos</th>
+                            <th>Fornecedor</th>
+                            <th>Site do Fornecedor</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -56,7 +58,14 @@
                                 <td>{{ $product->product_detail->lenght ?? '' }}</td>
                                 <td>{{ $product->product_detail->width ?? ''  }}</td>
                                 <td>{{ $product->product_detail->height ?? ''  }}</td>
-                                <td>{{ $product->product_detail->unit_id ?? ''  }}</td>
+                                <td>{{ $product->product_detail->unit->name ?? ''  }}</td>
+
+                                {{-- consultando os dados relacionados à tabela providers --}}
+                                {{-- se não existirem dados relacionados, insere '' --}}
+                                <td>{{ $product->provider->name ?? '' }}</td>
+                                <td>{{ $product->provider->site ?? '' }}</td>
+
+                                {{-- inserindo os links de ação --}}
                                 <td><a href="{{ route('product.show', $product->id) }}">Visualizar</a></td>
                                 <td><a href="{{ route('product.edit', $product->id) }}">Editar</a></td>
                                 {{-- para o caso do excluir, como utiliza o verbo http delete --}}

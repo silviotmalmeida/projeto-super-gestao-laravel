@@ -32,7 +32,7 @@
                     </thead>
                     <tbody>
 
-                        {{-- desenhando os registros --}}
+                        {{-- desenhando os registros de fornecedor --}}
                         @foreach ($providers as $provider)
                             <tr>
                                 <td>{{ $provider->name }}</td>
@@ -42,6 +42,32 @@
                                 <td><a href="{{ route('app.provider.edit', $provider->id) }}">Editar</a></td>
                                 <td><a href="{{ route('app.provider.delete', $provider->id) }}">Excluir</a></td>
                             </tr>
+
+                            {{-- consultando os dados relacionados à tabela products --}}
+                            {{-- se existirem produtos associados ao fornecedor, desenha a tabela de produtos --}}
+                            @if($provider->product->count())
+                            <tr>
+                                <td colspan="6">
+                                    <p>Lista de Produtos</p>
+                                    <table border="1" style="margin: 20px">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nome</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($provider->product as $key => $product)
+                                            <tr>
+                                                <td>{{ $product->id }}</td>
+                                                <td>{{ $product->name }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

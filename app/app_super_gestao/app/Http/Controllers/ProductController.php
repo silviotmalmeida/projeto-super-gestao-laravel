@@ -17,8 +17,9 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // consulta no BD, ordenando por id decrescente, paginando os registros
-        $products = Product::orderBy('id', 'desc')->paginate(10);
+        // consulta no BD, considerando os relacionamentos com as models product_detail e provider, 
+        // ordenando por id decrescente, paginando os registros
+        $products = Product::with(['product_detail', 'provider'])->orderBy('id', 'desc')->paginate(10);
 
         // renderiza a view list, passando os resultados da consulta e os parâmetros do request
         // o envio dos parâmetros do request possibilita a persistência dos filtros utilizados na paginação

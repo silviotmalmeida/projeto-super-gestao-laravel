@@ -30,6 +30,12 @@ class CreateProductsTable extends Migration
             //// adição da restrição de integridade referencial
             $table->foreign('unit_id')->references('id')->on('units');
 
+            // configuração da chave estrangeira para a tabela providers (um para muitos):
+            //// criação da coluna
+            $table->integer('provider_id');
+            //// adição da restrição de integridade referencial
+            $table->foreign('provider_id')->references('id')->on('providers');
+
             // coluna para permitir o soft delete
             $table->softDeletes();
         });

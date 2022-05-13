@@ -23,4 +23,14 @@ class Provider extends Model
         'uf',
         'email'
     ];
+
+    // implementando o relacionamento 1-N com a model product
+    // o hasMany é utilizado na entidade forte, ou seja, a tabela que não contém a chave estrangeira
+    // o primeiro argumento deve ser model da tabela fraca
+    // o segundo argumento deve ser a fk na tabela fraca
+    // o terceiro argumento deve ser a pk na tabela forte
+    public function product()
+    {
+        return $this->hasMany('App\Product', 'provider_id', 'id');
+    }
 }

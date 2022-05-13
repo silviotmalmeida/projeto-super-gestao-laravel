@@ -96,8 +96,8 @@ class ProductDetailController extends Controller
     public function edit($id)
     {
 
-        // consulta no BD, utilizando o id
-        $product_detail = ProductDetail::find($id);
+        // consulta no BD, considerando o relacionamento com a tabela products, utilizando o id
+        $product_detail = ProductDetail::with(['product'])->find($id);
 
         // se não houver correspondência no BD
         if (!$product_detail->id) {
