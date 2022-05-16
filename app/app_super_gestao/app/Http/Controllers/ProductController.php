@@ -7,9 +7,36 @@ use Illuminate\Http\Request;
 // importando as models
 use App\Product;
 use App\Unit;
+use App\Provider;
 
 class ProductController extends Controller
 {
+
+    // definição das validações de cada campo
+    private $validationRules =
+    [
+        'name' => 'required|min:3|max:50',
+        'description' => 'required|min:3|max:100',
+        'weight' => 'required|numeric|between:0,1000',
+        'unit_id' => 'required|integer|exists:units,id',
+        'provider_id' => 'required|integer|exists:providers,id',
+    ];
+
+    // customização das mensagens de erro
+    private $validationMessages =
+    [
+        'required' => 'O campo não pode ser vazio!',
+        'name.min' => 'O campo nome não ter menos de 3 caracteres!',
+        'name.max' => 'O campo nome não ter mais de 50 caracteres!',
+        'description.min' => 'O campo nome não ter menos de 3 caracteres!',
+        'description.max' => 'O campo nome não ter mais de 50 caracteres!',
+        'numeric' => 'O campo deve ser um número!',
+        'weight.between' => 'O campo deve ser um número entre 0 e 1000!',
+        'integer' => 'O campo deve ser um número inteiro!',
+        'unit_id.exists' => 'Unidade de medida inválida!',
+        'provider_id.exists' => 'Fornecedor inválido!',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -37,8 +64,11 @@ class ProductController extends Controller
         // obtendo as unidades de medida cadastradas
         $units = Unit::all();
 
+        // obtendo os fornecedores cadastrados
+        $providers = Provider::all();
+
         // renderiza a view create, injetando as unidades de medida
-        return view('app.product.create', ['units' => $units]);
+        return view('app.product.create', ['units' => $units, 'providers' => $providers]);
     }
 
     /**
@@ -51,27 +81,7 @@ class ProductController extends Controller
     {
 
         // validando os dados recebidos do formulário
-        $request->validate(
-            // definição das validações de cada campo
-            [
-                'name' => 'required|min:3|max:50',
-                'description' => 'required|min:3|max:100',
-                'weight' => 'required|numeric|between:0,1000',
-                'unit_id' => 'required|integer|exists:units,id',
-            ],
-            // customização das mensagens de erro
-            [
-                'required' => 'O campo não pode ser vazio!',
-                'name.min' => 'O campo nome não ter menos de 3 caracteres!',
-                'name.max' => 'O campo nome não ter mais de 50 caracteres!',
-                'description.min' => 'O campo nome não ter menos de 3 caracteres!',
-                'description.max' => 'O campo nome não ter mais de 50 caracteres!',
-                'numeric' => 'O campo deve ser um número!',
-                'weight.between' => 'O campo deve ser um número entre 0 e 1000!',
-                'integer' => 'O campo deve ser um número inteiro!',
-                'unit_id.exists' => 'Unidade de medida inválida!',
-            ]
-        );
+        $request->validate($this->validationRules, $this->validationMessages);
 
         // insere os dados no BD
         $product = new Product();
@@ -129,8 +139,11 @@ class ProductController extends Controller
             // obtendo as unidades de medida cadastradas
             $units = Unit::all();
 
+            // obtendo os fornecedores cadastrados
+            $providers = Provider::all();
+
             // renderiza a view add, passando os resultados da consulta
-            return view('app.product.create', ['product' => $product, 'units' => $units]);
+            return view('app.product.create', ['product' => $product, 'units' => $units, 'providers' => $providers]);
         }
     }
 
@@ -144,27 +157,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         // validando os dados recebidos do formulário
-        $request->validate(
-            // definição das validações de cada campo
-            [
-                'name' => 'required|min:3|max:50',
-                'description' => 'required|min:3|max:100',
-                'weight' => 'required|numeric|between:0,1000',
-                'unit_id' => 'required|integer|exists:units,id',
-            ],
-            // customização das mensagens de erro
-            [
-                'required' => 'O campo não pode ser vazio!',
-                'name.min' => 'O campo nome não ter menos de 3 caracteres!',
-                'name.max' => 'O campo nome não ter mais de 50 caracteres!',
-                'description.min' => 'O campo nome não ter menos de 3 caracteres!',
-                'description.max' => 'O campo nome não ter mais de 50 caracteres!',
-                'numeric' => 'O campo deve ser um número!',
-                'weight.between' => 'O campo deve ser um número entre 0 e 1000!',
-                'integer' => 'O campo deve ser um número inteiro!',
-                'unit_id.exists' => 'Unidade de medida inválida!',
-            ]
-        );
+        $request->validate($this->validationRules, $this->validationMessages);
 
         // atualiza os dados no BD
         $product = Product::find($id);

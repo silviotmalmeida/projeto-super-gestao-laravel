@@ -11,6 +11,29 @@ use App\ProductDetail;
 
 class ProductDetailController extends Controller
 {
+
+    // definição das validações de cada campo
+    private $validationRules =
+    [
+        'lenght' => 'required|numeric|between:0,1000',
+        'width' => 'required|numeric|between:0,1000',
+        'height' => 'required|numeric|between:0,1000',
+        'product_id' => 'required|integer|exists:products,id|unique:products',
+        'unit_id' => 'required|integer|exists:units,id',
+    ];
+
+    // customização das mensagens de erro
+    private $validationMessages =
+    [
+        'required' => 'O campo não pode ser vazio!',
+        'numeric' => 'O campo deve ser um número!',
+        'between' => 'O campo deve ser um número entre 0 e 1000!',
+        'integer' => 'O campo deve ser um número inteiro!',
+        'product_id.exists' => 'Produto inválido!',
+        'product_id.unique' => 'Produto já utilizado!',
+        'unit_id.exists' => 'Unidade de medida inválida!',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -47,26 +70,7 @@ class ProductDetailController extends Controller
     public function store(Request $request)
     {
         // validando os dados recebidos do formulário
-        $request->validate(
-            // definição das validações de cada campo
-            [
-                'lenght' => 'required|numeric|between:0,1000',
-                'width' => 'required|numeric|between:0,1000',
-                'height' => 'required|numeric|between:0,1000',
-                'product_id' => 'required|integer|exists:products,id|unique:products',
-                'unit_id' => 'required|integer|exists:units,id',
-            ],
-            // customização das mensagens de erro
-            [
-                'required' => 'O campo não pode ser vazio!',
-                'numeric' => 'O campo deve ser um número!',
-                'between' => 'O campo deve ser um número entre 0 e 1000!',
-                'integer' => 'O campo deve ser um número inteiro!',
-                'product_id.exists' => 'Produto inválido!',
-                'product_id.unique' => 'Produto já utilizado!',
-                'unit_id.exists' => 'Unidade de medida inválida!',
-            ]
-        );
+        $request->validate($this->validationRules, $this->validationMessages);
 
         // insere os dados no BD
         $product_detail = new ProductDetail();
@@ -129,26 +133,7 @@ class ProductDetailController extends Controller
     public function update(Request $request, $id)
     {
         // validando os dados recebidos do formulário
-        $request->validate(
-            // definição das validações de cada campo
-            [
-                'lenght' => 'required|numeric|between:0,1000',
-                'width' => 'required|numeric|between:0,1000',
-                'height' => 'required|numeric|between:0,1000',
-                'product_id' => 'required|integer|exists:products,id|unique:products',
-                'unit_id' => 'required|integer|exists:units,id',
-            ],
-            // customização das mensagens de erro
-            [
-                'required' => 'O campo não pode ser vazio!',
-                'numeric' => 'O campo deve ser um número!',
-                'between' => 'O campo deve ser um número entre 0 e 1000!',
-                'integer' => 'O campo deve ser um número inteiro!',
-                'product_id.exists' => 'Produto inválido!',
-                'product_id.unique' => 'Produto já utilizado!',
-                'unit_id.exists' => 'Unidade de medida inválida!',
-            ]
-        );
+        $request->validate($this->validationRules, $this->validationMessages);
 
         // atualiza os dados no BD
         $product_detail = ProductDetail::find($id);

@@ -42,7 +42,11 @@
                     </tr>
                     <tr>
                         <td>Unidade:</td>
-                        <td>{{ $product->unit_id }}</td>
+                        <td>{{ $product->unit->name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Fornecedor:</td>
+                        <td>{{ $product->provider->name }}</td>
                     </tr>
                 </table>
             </div>

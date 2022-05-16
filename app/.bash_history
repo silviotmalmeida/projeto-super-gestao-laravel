@@ -162,3 +162,8 @@ exit
 cd /root/app_super_gestao/
 php artisan make:controller --resource ProductDetailController
 exit
+cd /root/app_super_gestao/
+php artisan make:model Client
+php artisan make:model Order
+php artisan make:model OrderProduct
+exit

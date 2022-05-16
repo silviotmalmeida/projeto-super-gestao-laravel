@@ -53,6 +53,19 @@
 {{-- inserindo a mensagem de erro referente ao select --}}
 {{$errors->has('unit_id') ? $errors->first('unit_id') : ''}}
 <br>
+{{-- inserindo o select --}}
+<select name="provider_id" class="borda-preta">
+    <option value="" @if(old('provider_id') == '' and isset($product->provider_id) and $product->provider_id == '')selected @endif>Selecione o fornecedor</option>
+
+    {{-- iterando sobre os providers cadastrados --}}
+    @foreach ($providers as $provider)
+        <option value="{{ $provider->id }}" @if(old('provider_id') == $provider->id or (isset($product->provider_id) and $product->provider_id == $provider->id))selected @endif>{{ $provider->name }}</option>
+    @endforeach
+    
+</select>
+{{-- inserindo a mensagem de erro referente ao select --}}
+{{$errors->has('provider_id') ? $errors->first('provider_id') : ''}}
+<br>
 {{-- inserindo o button --}}
 <button type="submit" class="borda-preta">Cadastrar</button>
 <form>

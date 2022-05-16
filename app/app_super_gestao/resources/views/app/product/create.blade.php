@@ -36,10 +36,10 @@
             {{-- adicionando o componente de formulário de criação e edição --}}
             {{-- caso o id do produto esteja definido, trata-se de uma edição --}}
             @if(isset($product->id))
-                @component('app.product._components._create_update_form', ['product' => $product, 'units' => $units])@endcomponent
+                @component('app.product._components._create_update_form', ['product' => $product, 'units' => $units, 'providers' => $providers])@endcomponent
             {{-- senão, trata-se de um novo cadastro --}}
             @else
-                @component('app.product._components._create_update_form', ['units' => $units])@endcomponent
+                @component('app.product._components._create_update_form', ['units' => $units, 'providers' => $providers])@endcomponent
             @endif   
         </div>
     </div>

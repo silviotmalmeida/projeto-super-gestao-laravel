@@ -10,6 +10,28 @@ use App\Provider;
 // controller responsável pelas ações da rota /app/provider
 class ProviderController extends Controller
 {
+
+    // definição das validações de cada campo
+    private $validationRules =
+    [
+        'name' => 'required|min:3|max:50',
+        'site' => 'required',
+        'uf' => 'required|min:2|max:2',
+        'email' => 'required|email|max:80',
+    ];
+
+    // customização das mensagens de erro
+    private $validationMessages =
+    [
+        'required' => 'O campo não pode ser vazio!',
+        'name.min' => 'O campo nome não ter menos de 3 caracteres!',
+        'name.max' => 'O campo nome não ter mais de 50 caracteres!',
+        'uf.min' => 'O campo UF deve possuir exatamente 2 caracteres!',
+        'uf.max' => 'O campo UF deve possuir exatamente 2 caracteres!',
+        'email' => 'E-mail inválido!',
+        'email.max' => 'O campo email não ter mais de 80 caracteres!',
+    ];
+
     // criando a ação index
     public function index()
     {
@@ -44,25 +66,7 @@ class ProviderController extends Controller
         if ($request->input('_token') != '' && $request->input('id') == '') {
 
             // validando os dados recebidos do formulário
-            $request->validate(
-                // definição das validações de cada campo
-                [
-                    'name' => 'required|min:3|max:50',
-                    'site' => 'required',
-                    'uf' => 'required|min:2|max:2',
-                    'email' => 'required|email|max:80',
-                ],
-                // customização das mensagens de erro
-                [
-                    'required' => 'O campo não pode ser vazio!',
-                    'name.min' => 'O campo nome não ter menos de 3 caracteres!',
-                    'name.max' => 'O campo nome não ter mais de 50 caracteres!',
-                    'uf.min' => 'O campo UF deve possuir exatamente 2 caracteres!',
-                    'uf.max' => 'O campo UF deve possuir exatamente 2 caracteres!',
-                    'email' => 'E-mail inválido!',
-                    'email.max' => 'O campo email não ter mais de 80 caracteres!',
-                ]
-            );
+            $request->validate($this->validationRules, $this->validationMessages);
 
             // insere os dados no BD
             $provider = new Provider();
@@ -75,26 +79,7 @@ class ProviderController extends Controller
         else if ($request->input('_token') != '' && $request->input('id') != '') {
 
             // validando os dados recebidos do formulário
-            $request->validate(
-                // definição das validações de cada campo
-                [
-                    'id' => 'required',
-                    'name' => 'required|min:3|max:50',
-                    'site' => 'required',
-                    'uf' => 'required|min:2|max:2',
-                    'email' => 'required|email|max:80',
-                ],
-                // customização das mensagens de erro
-                [
-                    'required' => 'O campo não pode ser vazio!',
-                    'name.min' => 'O campo nome não ter menos de 3 caracteres!',
-                    'name.max' => 'O campo nome não ter mais de 50 caracteres!',
-                    'uf.min' => 'O campo UF deve possuir exatamente 2 caracteres!',
-                    'uf.max' => 'O campo UF deve possuir exatamente 2 caracteres!',
-                    'email' => 'E-mail inválido!',
-                    'email.max' => 'O campo email não ter mais de 80 caracteres!',
-                ]
-            );
+            $request->validate($this->validationRules, $this->validationMessages);
 
             // atualiza os dados no BD
             $provider = Provider::find($request->input('id'));
