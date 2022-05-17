@@ -36,9 +36,7 @@ Route::prefix('/app')->middleware('customauth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('app.home');
     // rota para a página logout
     Route::get('/logout', 'LoginController@logout')->name('app.logout');
-    // rota para a página client
-    Route::get('/client', 'ClientController@index')->name('app.client');
-
+    
     // rotas para as páginas de provider
     Route::get('/provider', 'ProviderController@index')->name('app.provider');
     Route::get('/provider/list', 'ProviderController@list')->name('app.provider.list');
@@ -48,7 +46,7 @@ Route::prefix('/app')->middleware('customauth')->group(function () {
     // atributo id obrigatório, msg opcional
     Route::get('/provider/edit/{id}/{msg?}', 'ProviderController@edit')->name('app.provider.edit');
     Route::get('/provider/delete/{id}', 'ProviderController@delete')->name('app.provider.delete');
-       
+
     // rotas para as ações de ProductController
     // como o controller foi criado com resources, as rotas podem ser configuradas de forma simplificada
     // esta configuração usa os verbos http mais apropriados para cada ação
@@ -58,6 +56,21 @@ Route::prefix('/app')->middleware('customauth')->group(function () {
     // como o controller foi criado com resources, as rotas podem ser configuradas de forma simplificada
     // esta configuração usa os verbos http mais apropriados para cada ação
     Route::resource('product_detail', 'ProductDetailController');
+
+    // rotas para as ações de ClientController
+    // como o controller foi criado com resources, as rotas podem ser configuradas de forma simplificada
+    // esta configuração usa os verbos http mais apropriados para cada ação
+    Route::resource('client', 'ClientController');
+
+    // rotas para as ações de OrderController
+    // como o controller foi criado com resources, as rotas podem ser configuradas de forma simplificada
+    // esta configuração usa os verbos http mais apropriados para cada ação
+    Route::resource('order', 'OrderController');
+
+    // rotas para as ações de OrderProductController
+    // como o controller foi criado com resources, as rotas podem ser configuradas de forma simplificada
+    // esta configuração usa os verbos http mais apropriados para cada ação
+    Route::resource('order_product', 'OrderProductController');
 });
 
 // definindo a rota de fallback, que será utilizada em rotas não existentes

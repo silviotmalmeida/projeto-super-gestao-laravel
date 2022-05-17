@@ -26,7 +26,7 @@ class Client extends Model
     // o primeiro argumento deve ser model da tabela fraca
     // o segundo argumento deve ser a fk na tabela fraca
     // o terceiro argumento deve ser a pk na tabela forte
-    public function product()
+    public function order()
     {
         return $this->hasMany('App\Order', 'client_id', 'id');
     }

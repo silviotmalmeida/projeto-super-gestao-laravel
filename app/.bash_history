@@ -167,3 +167,14 @@ php artisan make:model Client
 php artisan make:model Order
 php artisan make:model OrderProduct
 exit
+cd /root/app_super_gestao/
+php artisan make:controller --resource ClientController
+php artisan make:controller --resource OrderController
+php artisan make:controller --resource OrderProductController
+exit
+cd /root/app_super_gestao/
+php artisan make:seeder ClientSeeder
+exit
+cd /root/app_super_gestao/
+php artisan make:seeder OrderSeeder
+exit

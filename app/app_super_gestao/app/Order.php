@@ -26,7 +26,7 @@ class Order extends Model
     // o primeiro argumento deve ser model da tabela forte
     // o segundo argumento deve ser a fk na tabela fraca
     // o terceiro argumento deve ser a pk na tabela forte
-    public function provider()
+    public function client()
     {
         return $this->belongsTo('App\Client', 'client_id', 'id');
     }

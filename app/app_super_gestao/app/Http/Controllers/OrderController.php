@@ -5,36 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 // importando as models
-use App\Product;
-use App\Unit;
-use App\Provider;
+use App\Order;
+use App\Client;
 
-class ProductController extends Controller
+class OrderController extends Controller
 {
 
     // definição das validações de cada campo
     private $validationRules =
     [
-        'name' => 'required|min:3|max:50',
-        'description' => 'required|min:3|max:100',
-        'weight' => 'required|numeric|between:0,1000',
-        'unit_id' => 'required|integer|exists:units,id',
-        'provider_id' => 'required|integer|exists:providers,id',
+        'client_id' => 'required|integer|exists:clients,id',
     ];
 
     // customização das mensagens de erro
     private $validationMessages =
     [
         'required' => 'O campo não pode ser vazio!',
-        'name.min' => 'O campo nome não ter menos de 3 caracteres!',
-        'name.max' => 'O campo nome não ter mais de 50 caracteres!',
-        'description.min' => 'O campo nome não ter menos de 3 caracteres!',
-        'description.max' => 'O campo nome não ter mais de 50 caracteres!',
-        'numeric' => 'O campo deve ser um número!',
-        'weight.between' => 'O campo deve ser um número entre 0 e 1000!',
         'integer' => 'O campo deve ser um número inteiro!',
-        'unit_id.exists' => 'Unidade de medida inválida!',
-        'provider_id.exists' => 'Fornecedor inválido!',
+        'client_id.exists' => 'Cliente inválido!',
     ];
 
     /**
@@ -44,13 +32,13 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // consulta no BD, considerando os relacionamentos com as models product_detail e provider, 
+        // consulta no BD, considerando os relacionamentos com a model client, 
         // ordenando por id decrescente, paginando os registros
-        $products = Product::with(['product_detail', 'provider'])->orderBy('id', 'desc')->paginate(10);
+        $orders = Order::with(['client'])->orderBy('id', 'desc')->paginate(10);
 
         // renderiza a view index, passando os resultados da consulta e os parâmetros do request
         // o envio dos parâmetros do request possibilita a persistência dos filtros utilizados na paginação
-        return view('app.product.index', ['products' => $products, 'request' => $request->all()]);
+        return view('app.order.index', ['orders' => $orders, 'request' => $request->all()]);
     }
 
     /**
@@ -60,15 +48,11 @@ class ProductController extends Controller
      */
     public function create()
     {
+        // obtendo os clientes cadastrados
+        $clients = Client::all();
 
-        // obtendo as unidades de medida cadastradas
-        $units = Unit::all();
-
-        // obtendo os fornecedores cadastrados
-        $providers = Provider::all();
-
-        // renderiza a view create, injetando as unidades de medida
-        return view('app.product.create', ['units' => $units, 'providers' => $providers]);
+        // renderiza a view create, injetando os clientes
+        return view('app.order.create', ['clients' => $clients]);
     }
 
     /**
@@ -79,16 +63,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
         // validando os dados recebidos do formulário
         $request->validate($this->validationRules, $this->validationMessages);
 
         // insere os dados no BD
-        $product = new Product();
-        $product->create($request->all());
+        $order = new Order();
+        $order->create($request->all());
 
         // redireciona para a rota index
-        return redirect()->route('product.index');
+        return redirect()->route('order.index');
     }
 
     /**
@@ -100,19 +83,19 @@ class ProductController extends Controller
     public function show($id)
     {
         // consulta no BD, utilizando o id
-        $product = Product::find($id);
+        $order = Order::find($id);
 
         // se não houver correspondência no BD
-        if (!$product->id) {
+        if (!$order->id) {
 
             // renderiza a view index
-            return redirect()->route('product.index');
+            return redirect()->route('order.index');
         }
         // senão
         else {
 
             // renderiza a view add, passando os resultados da consulta
-            return view('app.product.show', ['product' => $product]);
+            return view('app.order.show', ['order' => $order]);
         }
     }
 
@@ -125,25 +108,22 @@ class ProductController extends Controller
     public function edit($id)
     {
         // consulta no BD, utilizando o id
-        $product = Product::find($id);
+        $order = Order::find($id);
 
         // se não houver correspondência no BD
-        if (!$product->id) {
+        if (!$order->id) {
 
             // renderiza a view index
-            return redirect()->route('product.index');
+            return redirect()->route('order.index');
         }
         // senão
         else {
 
-            // obtendo as unidades de medida cadastradas
-            $units = Unit::all();
-
-            // obtendo os fornecedores cadastrados
-            $providers = Provider::all();
+            // obtendo os clientes cadastrados
+            $clients = Client::all();
 
             // renderiza a view add, passando os resultados da consulta
-            return view('app.product.create', ['product' => $product, 'units' => $units, 'providers' => $providers]);
+            return view('app.order.create', ['order' => $order, 'clients' => $clients]);
         }
     }
 
@@ -160,11 +140,11 @@ class ProductController extends Controller
         $request->validate($this->validationRules, $this->validationMessages);
 
         // atualiza os dados no BD
-        $product = Product::find($id);
-        $product->update($request->all());
+        $order = Order::find($id);
+        $order->update($request->all());
 
         // redireciona para a rota index
-        return redirect()->route('product.show', ['product' => $product->id]);
+        return redirect()->route('order.show', ['order' => $order->id]);
     }
 
     /**
@@ -176,22 +156,22 @@ class ProductController extends Controller
     public function destroy($id)
     {
         // consulta no BD, utilizando o id
-        $product = Product::find($id);
+        $order = Order::find($id);
 
         // se não houver correspondência no BD
-        if (!$product->id) {
+        if (!$order->id) {
 
             // renderiza a view index
-            return redirect()->route('product.index');
+            return redirect()->route('order.index');
         }
         // senão
         else {
 
             // apagando o registro no BD
-            $product->delete();
+            $order->delete();
 
             // renderiza a view index
-            return redirect()->route('product.index');
+            return redirect()->route('order.index');
         }
     }
 }
