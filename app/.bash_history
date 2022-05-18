@@ -178,3 +178,7 @@ exit
 cd /root/app_super_gestao/
 php artisan make:seeder OrderSeeder
 exit
+php artisan make:seeder OrderProductSeeder
+cd /root/app_super_gestao/
+php artisan make:seeder OrderProductSeeder
+exit

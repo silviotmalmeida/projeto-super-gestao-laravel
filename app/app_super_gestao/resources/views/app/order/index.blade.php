@@ -46,6 +46,7 @@
                                 <td>{{ $order->client->name }}</td>
 
                                 {{-- inserindo os links de ação --}}
+                                <td><a href="{{ route('order_product.create', $order->id) }}">Inserir Produto</a></td>
                                 <td><a href="{{ route('order.show', $order->id) }}">Visualizar</a></td>
                                 <td><a href="{{ route('order.edit', $order->id) }}">Editar</a></td>
                                 {{-- para o caso do excluir, como utiliza o verbo http delete --}}
@@ -60,6 +61,32 @@
                                         <a href="#" onclick="document.getElementById('form_delete_{{ $order->id }}').submit()">Excluir</a></td>
                                     </form>    
                             </tr>
+
+                            {{-- consultando os dados relacionados à tabela products --}}
+                            {{-- se existirem produtos associados ao pedido, desenha a tabela de produtos --}}
+                            @if($order->product->count())
+                            <tr>
+                                <td colspan="6">
+                                    <p>Lista de Produtos</p>
+                                    <table border="1" style="margin: 20px">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nome</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($order->product as $key => $product)
+                                            <tr>
+                                                <td>{{ $product->id }}</td>
+                                                <td>{{ $product->name }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

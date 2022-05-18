@@ -54,4 +54,14 @@ class Product extends Model
     {
         return $this->hasOne('App\ProductDetail', 'product_id', 'id');
     }
+
+    // implementando o relacionamento N-N com a model order
+    // o primeiro argumento deve ser model da outra tabela
+    // o segundo argumento deve ser a tabela de relacionamento
+    // o terceiro argumento deve ser a fk desta tabela na tabela de relacionamento
+    // o quarto argumento deve ser a fk da outra tabela na tabela de relacionamento
+    public function order()
+    {
+        return $this->belongsToMany('App\Order', 'order_products', 'product_id', 'order_id');
+    }
 }

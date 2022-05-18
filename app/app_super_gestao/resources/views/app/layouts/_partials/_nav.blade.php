@@ -13,6 +13,7 @@
             <li><a href="{{ route('client.index') }}">Clientes</a></li>
             <li><a href="{{ route('app.provider') }}">Fornecedores</a></li>
             <li><a href="{{ route('product.index') }}">Produtos</a></li>
+            <li><a href="{{ route('order.index') }}">Pedidos</a></li>
             <li><a href="{{ route('app.logout') }}">Sair</a></li>
         </ul>
     </div>

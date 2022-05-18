@@ -70,7 +70,9 @@ Route::prefix('/app')->middleware('customauth')->group(function () {
     // rotas para as ações de OrderProductController
     // como o controller foi criado com resources, as rotas podem ser configuradas de forma simplificada
     // esta configuração usa os verbos http mais apropriados para cada ação
-    Route::resource('order_product', 'OrderProductController');
+    // foi necessário customizar as rotas para permitir a implementação
+    Route::get('/order_product/create/{order}', 'OrderProductController@create')->name('order_product.create');
+    Route::post('/order_product/store/{order}', 'OrderProductController@store')->name('order_product.store');
 });
 
 // definindo a rota de fallback, que será utilizada em rotas não existentes
