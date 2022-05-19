@@ -80,6 +80,39 @@
                                         <a href="#" onclick="document.getElementById('form_delete_{{ $product->id }}').submit()">Excluir</a></td>
                                     </form>    
                             </tr>
+
+                            {{-- consultando os dados relacionados à tabela order --}}
+                            {{-- se existirem produtos associados ao produto, desenha a tabela de pedidos --}}
+                            @if($product->order->count())
+                            <tr>
+                                <td colspan="13">
+                                    <p>Pedidos</p>
+                                    <table border="1" style="margin: 20px">
+                                        <thead>
+                                            <tr>
+                                                <th>ID do Pedido</th>
+                                                <th>Data do Pedido</th>
+                                                <th>Quantidade de itens</th>
+                                                <th>ID do Cliente</th>
+                                                <th>Nome do Cliente</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{-- iterando sobre a lista de pedidos daquele produto --}}
+                                            @foreach($product->order as $key => $order)
+                                            <tr>
+                                                <td><a href="{{ route('order_product.create', $order->id) }}">{{ $order->id }}</a></td>
+                                                <td>{{ $order->pivot->created_at->format('d/m/Y') }}</td>
+                                                <td>{{ $order->pivot->qtd }}</td>
+                                                <td>{{ $order->client->id }}</td>
+                                                <td>{{ $order->client->name }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

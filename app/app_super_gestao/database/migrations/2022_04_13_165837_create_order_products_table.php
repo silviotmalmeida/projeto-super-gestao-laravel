@@ -31,6 +31,9 @@ class CreateOrderProductsTable extends Migration
             //// adição da restrição de integridade referencial
             $table->foreign('product_id')->references('id')->on('products');
             
+            //// criação da coluna
+            $table->integer('qtd');
+
             // coluna para permitir o soft delete
             $table->softDeletes();
         });

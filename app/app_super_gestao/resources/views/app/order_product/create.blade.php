@@ -39,18 +39,25 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome do produto</th>
+                            <th>Quantidade de itens</th>
+                            <th>Data da inclusão ao Pedido</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {{-- iterando sobre a lista de produtos daquele pedido --}}
                         @foreach($order->product as $key => $product)
                             <tr>
                                 <td>{{ $product->id }}</td>
                                 <td>{{ $product->name }}</td>
+                                <td>{{ $product->pivot->qtd }}</td>
+                                <td>{{ $product->pivot->created_at->format('d/m/Y') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-            @endif   
+            @endif  
+            
+            <br>
                         
             {{-- definindo a rota de destino e o verb http a ser utilizado pelo formulário --}}
             <form method="post" action="{{ route('order_product.store', $order->id) }}">
@@ -75,6 +82,12 @@
                 </select>
                 {{-- inserindo a mensagem de erro referente ao select --}}
                 {{$errors->has('product_id') ? $errors->first('product_id') : ''}}
+                <br>
+
+                {{-- inserindo o input --}}
+                <input type="text" name="qtd" value="{{ old('qtd') ?? '' }}" placeholder="Quantidade de itens" class="borda-preta">
+                {{-- inserindo a mensagem de erro referente ao input --}}
+                {{$errors->has('qtd') ? $errors->first('qtd') : ''}}
                 <br>
                 
                 {{-- inserindo o button --}}

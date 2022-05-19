@@ -16,6 +16,7 @@ class OrderProductController extends Controller
     private $validationRules =
     [        
         'product_id' => 'required|integer|exists:products,id',
+        'qtd' => 'required|integer',
     ];
 
     // customização das mensagens de erro

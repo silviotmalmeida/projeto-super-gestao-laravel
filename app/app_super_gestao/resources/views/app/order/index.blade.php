@@ -67,19 +67,28 @@
                             @if($order->product->count())
                             <tr>
                                 <td colspan="6">
-                                    <p>Lista de Produtos</p>
+                                    <p>Produtos</p>
                                     <table border="1" style="margin: 20px">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Nome</th>
+                                                <th>Data da inclusão ao Pedido</th>
+                                                <th>ID do Produto</th>
+                                                <th>Nome do Produto</th>
+                                                <th>Quantidade de itens</th>
+                                                <th>ID do Fornecedor</th>
+                                                <th>Nome do Fornecedor</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{-- iterando sobre a lista de produtos daquele pedido --}}
                                             @foreach($order->product as $key => $product)
                                             <tr>
+                                                <td>{{ $product->pivot->created_at->format('d/m/Y') }}</td>
                                                 <td>{{ $product->id }}</td>
                                                 <td>{{ $product->name }}</td>
+                                                <td>{{ $product->pivot->qtd }}</td>
+                                                <td>{{ $product->provider->id }}</td>
+                                                <td>{{ $product->provider->name }}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>

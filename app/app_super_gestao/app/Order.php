@@ -36,8 +36,9 @@ class Order extends Model
     // o segundo argumento deve ser a tabela de relacionamento
     // o terceiro argumento deve ser a fk desta tabela na tabela de relacionamento
     // o quarto argumento deve ser a fk da outra tabela na tabela de relacionamento
+    // dentro da função withPivot devem estar os atributos adicionais de interesse na tabela de relacionamento
     public function product()
     {
-        return $this->belongsToMany('App\Product', 'order_products', 'order_id', 'product_id');
+        return $this->belongsToMany('App\Product', 'order_products', 'order_id', 'product_id')->withPivot('qtd', 'created_at');
     }
 }
