@@ -14,7 +14,7 @@ class OrderProductController extends Controller
 
     // definição das validações de cada campo
     private $validationRules =
-    [        
+    [
         'product_id' => 'required|integer|exists:products,id',
         'qtd' => 'required|integer',
     ];
@@ -73,15 +73,37 @@ class OrderProductController extends Controller
      */
     public function store(Request $request, $order_id)
     {
-        
+
         // validando os dados recebidos do formulário
         $request->validate($this->validationRules, $this->validationMessages);
 
-        // insere os dados no BD
+        // obtendo os dados do produto incluído
+        $product_id = $request->get('product_id');
+        $qtd = $request->get('qtd');
+
+        // verificando já existe este tipo de produto no pedido
         $order_product = new OrderProduct();
-        $order_product->order_id = $order_id;
-        $order_product->product_id = $request->get('product_id');
-        $order_product->save();
+        $exists = $order_product->where('order_id', $order_id)->where('product_id', $product_id)->get()->first();
+
+        // se existir
+        if (isset($exists->product_id)) {
+
+            // realiza a atualização da quantidade
+            $exists->qtd += $qtd;
+
+            // atualiza o registo no BD
+            $exists->update();
+        }
+        // senão
+        else {
+
+            // insere o novo tipo de produto no pedido
+            $order_product = new OrderProduct();
+            $order_product->order_id = $order_id;
+            $order_product->product_id = $product_id;
+            $order_product->qtd = $qtd;
+            $order_product->save();
+        }
 
         // redireciona para a rota create
         return redirect()->route('order_product.create', $order_id);
@@ -128,7 +150,32 @@ class OrderProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {        
+
+        
+
+        // consulta no BD, utilizando o id
+        $order_product = OrderProduct::find($id);
+
+        dd($order_product);
+
+        // se não houver correspondência no BD
+        if (!$order_product->id) {
+
+            // renderiza a view index do pedido
+            return redirect()->route('order.index');
+        }
+        // senão
+        else {
+
+            // obtendo o id do pedido
+            $order_id = $order_product->order_id;
+
+            // apagando o registro no BD
+            $order_product->delete();
+
+            // renderiza a view create
+            return redirect()->route('order_product.create', $order_id);
+        }
     }
 }

@@ -77,8 +77,9 @@
                                         {{-- alterando o verbo http como delete --}}
                                         @method('DELETE')
                                         {{-- inserindo o link com evento de javascript para submeter o formulário --}}
-                                        <a href="#" onclick="document.getElementById('form_delete_{{ $product->id }}').submit()">Excluir</a></td>
+                                        <a href="#" onclick="document.getElementById('form_delete_{{ $product->id }}').submit()">Excluir</a>
                                     </form>    
+                                </td>
                             </tr>
 
                             {{-- consultando os dados relacionados à tabela order --}}

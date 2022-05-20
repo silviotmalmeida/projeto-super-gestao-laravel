@@ -39,6 +39,6 @@ class Order extends Model
     // dentro da função withPivot devem estar os atributos adicionais de interesse na tabela de relacionamento
     public function product()
     {
-        return $this->belongsToMany('App\Product', 'order_products', 'order_id', 'product_id')->withPivot('qtd', 'created_at');
+        return $this->belongsToMany('App\Product', 'order_products', 'order_id', 'product_id')->withPivot('id', 'qtd', 'created_at');
     }
 }

@@ -43,10 +43,11 @@ class LoginController extends Controller
 
         // criando o objeto usuário do laravel
         $user = new User();
+
         // verificando se há correspondência para os dados do formulário no BD
         $exists = $user->where('email', $email)->where('password', $password)->get()->first();
 
-
+        // se existir correspondência entre os dados
         if (isset($exists->name)) {
 
             // inicia a sessão e cria os atributos nome e email
@@ -56,10 +57,9 @@ class LoginController extends Controller
 
             // redireciona para a view client
             return redirect()->route('app.home');
-        } else {
-
-            // destruindo a sessão
-            session_destroy();
+        }
+        // senão
+        else {
 
             // renderiza a view login, passando o código de erro de autenticação
             return redirect()->route('site.login', ['error' => 1]);

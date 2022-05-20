@@ -33,9 +33,6 @@ class CreateOrderProductsTable extends Migration
             
             //// criação da coluna
             $table->integer('qtd');
-
-            // coluna para permitir o soft delete
-            $table->softDeletes();
         });
     }
 

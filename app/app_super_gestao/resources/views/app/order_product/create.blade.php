@@ -41,6 +41,7 @@
                             <th>Nome do produto</th>
                             <th>Quantidade de itens</th>
                             <th>Data da inclusão ao Pedido</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,6 +52,22 @@
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->pivot->qtd }}</td>
                                 <td>{{ $product->pivot->created_at->format('d/m/Y') }}</td>
+
+
+                                {{-- para o caso do excluir, como utiliza o verbo http delete --}}
+                                {{-- deve-se incluir um form para isto, com id dinâmico, e ativado por um link com javascript --}}
+                                <td>
+                                    <form id="form_delete_{{ $product->pivot->id }}" method="post" action="{{ route('order_product.destroy', $product->pivot->id) }}">
+                                        {{-- inserindo o token csrf --}}
+                                        @csrf
+                                        {{-- alterando o verbo http como delete --}}
+                                        @method('DELETE')
+                                        {{-- inserindo o link com evento de javascript para submeter o formulário --}}
+                                        <a href="#" onclick="document.getElementById('form_delete_{{ $product->pivot->id }}').submit()">Excluir</a>
+                                    </form>    
+                                </td>
+
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -85,7 +102,7 @@
                 <br>
 
                 {{-- inserindo o input --}}
-                <input type="text" name="qtd" value="{{ old('qtd') ?? '' }}" placeholder="Quantidade de itens" class="borda-preta">
+                <input type="number" name="qtd" value="{{ old('qtd') ?? '' }}" placeholder="Quantidade de itens" class="borda-preta">
                 {{-- inserindo a mensagem de erro referente ao input --}}
                 {{$errors->has('qtd') ? $errors->first('qtd') : ''}}
                 <br>

@@ -73,6 +73,7 @@ Route::prefix('/app')->middleware('customauth')->group(function () {
     // foi necessário customizar as rotas para permitir a implementação
     Route::get('/order_product/create/{order}', 'OrderProductController@create')->name('order_product.create');
     Route::post('/order_product/store/{order}', 'OrderProductController@store')->name('order_product.store');
+    Route::delete('/order_product/destroy/{order_product}', 'OrderProductController@destroy')->name('order_product.destroy');
 });
 
 // definindo a rota de fallback, que será utilizada em rotas não existentes
