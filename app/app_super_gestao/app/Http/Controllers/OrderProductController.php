@@ -151,13 +151,9 @@ class OrderProductController extends Controller
      */
     public function destroy($id)
     {        
-
-        
-
+      
         // consulta no BD, utilizando o id
         $order_product = OrderProduct::find($id);
-
-        dd($order_product);
 
         // se não houver correspondência no BD
         if (!$order_product->id) {
